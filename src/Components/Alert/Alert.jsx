@@ -1,5 +1,6 @@
-import s from './Alert.module.css'
 import propTypes from 'prop-types'
+import s from './Alert.module.css'
+
 
 
 export default function Alert({onClickClose}) {

@@ -1,10 +1,11 @@
-import { Component } from 'react'
-import {CSSTransition} from 'react-transition-group'
-import s from './ContactForm.module.css'
-import propTypes from 'prop-types'
+import { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import phonebookActions from "../../redux/phonebook/phonebook-actions";
-import Alert from '../Alert/Alert'
+import propTypes from 'prop-types';
+import Alert from '../Alert/Alert';
+import phonebookOperations from "../../redux/phonebook/phonebook-operations";
+import phonebookSelectors from '../../redux/phonebook/phonebook-selectors'
+import s from './ContactForm.module.css';
 
 
 class ContactForm extends Component { 
@@ -83,12 +84,12 @@ ContactForm.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-    contacts: state.contacts.items
+    contacts: phonebookSelectors.getItems(state)
 })
 
 
 const mapDispatchToProps = dispatch => ({
-    onAddContact: (contact) => dispatch(phonebookActions.addContact(contact))
+    onAddContact: (contact) => dispatch(phonebookOperations.addContact(contact))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm)

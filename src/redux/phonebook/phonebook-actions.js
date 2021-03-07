@@ -1,42 +1,36 @@
-// import types from './phonebook-types';
-import { v4 as uuidv4 } from 'uuid';
 import { createAction } from "@reduxjs/toolkit";
 
-const addContact = createAction('phonebook/add', ({ name, number }) => {
-    return {
-        payload: {
-      name: name,
-      number: number,
-      id: uuidv4()
-    }
-    }
-})
-
-// const addContact = ({ name, number }) => ({
-//     type: types.ADD,
-//     payload: {
-//       name: name,
-//       number: number,
-//       id: uuidv4()
-//     }
-// })
+const fetchContactRequest = createAction('contacts/fetchContactRequest');
+const fetchContactSuccess = createAction('contacts/fetchContactSuccess');
+const fetchContactError = createAction('contacts/fetchContactError');
 
 
-const removeContact =createAction('phonebook/remove')
+const addContactRequest = createAction('contacts/addContactRequest');
+const addContactSuccess = createAction('contacts/addContactSuccess');
+const addContactError = createAction('contacts/addContactError');
 
-// const removeContact = contactId => ({
-//     type: types.REMOVE,
-//     payload: contactId
-// })
-
+const removeContactRequest = createAction('contacts/removeContactRequest');
+const removeContactSuccess = createAction('contacts/removeContactSuccess');
+const removeContactError = createAction('contacts/removeContactError');
 
 const cahngeFilter = createAction('phonebook/changeFilter')
 
-// const cahngeFilter = (value) => ({
-//     type: types.CHANGE_FILTER,
-//     payload: value
-// })
 
-const phonebookActions = {addContact, removeContact, cahngeFilter}
+const phonebookActions = {
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError,
+
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+
+  removeContactRequest,
+  removeContactSuccess,
+  removeContactError,
+
+  
+  cahngeFilter
+}
 
 export default phonebookActions

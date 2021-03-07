@@ -1,5 +1,5 @@
-import s from './ContactItem.module.css'
-import propTypes from 'prop-types'
+import propTypes from 'prop-types';
+import s from './ContactItem.module.css';
 
 
 
@@ -22,7 +22,7 @@ ContactItem.propTypes = {
     name: propTypes.string.isRequired,
     number: propTypes.string,
     onClickRemove: propTypes.func.isRequired,
-    id: propTypes.string,
+    id: propTypes.number,
 }
 
 

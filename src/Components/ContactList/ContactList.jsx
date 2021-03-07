@@ -1,14 +1,24 @@
-import {TransitionGroup, CSSTransition} from 'react-transition-group'
-import propTypes from 'prop-types'
-import ContactItem from './ContactItem/ContactItem'
-import s from "./ContactList.module.css";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import phonebookActions from "../../redux/phonebook/phonebook-actions";
+import { Component } from 'react';
+import ContactItem from './ContactItem/ContactItem';
+import phonebookOperations from "../../redux/phonebook/phonebook-operations";
+import phonebookSelectors from '../../redux/phonebook/phonebook-selectors';
+import s from "./ContactList.module.css";
 
 
 
-function ContactList({ contacts, onRemoveContact }) { 
-    return (
+
+class ContactList extends Component { 
+    componentDidMount() {
+        this.props.fetchContacts()
+    }
+
+
+    render() {
+        const {contacts, onRemoveContact} = this.props
+        return (
         <TransitionGroup component='ul' >
             {contacts.map(el => {
                 return (
@@ -23,29 +33,22 @@ function ContactList({ contacts, onRemoveContact }) {
             })}
         </TransitionGroup>
     )
+    }
+    
 }
 
 ContactList.propTypes = {
     onRemoveContact: propTypes.func.isRequired,
-    contacts: propTypes.arrayOf(propTypes.objectOf(propTypes.string)).isRequired
+    contacts: propTypes.arrayOf(propTypes.object).isRequired
 }
 
- const filtredContacts = (allContacts, filter) => {
-    // const {contacts, filter} = this.state
-    return allContacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-  }
-
-
-const mapStateProps = state => {
-    const { items, filter } = state.contacts
-    const visibleContacts = filtredContacts(items, filter)
-    return {
-contacts: visibleContacts
-}
-}
-
-const mapDispatchprops = dispatch => ({
-onRemoveContact: (id) => dispatch(phonebookActions.removeContact(id))
+const mapStateProps = state => ({
+    contacts: phonebookSelectors.getVisibleContacts(state)
 })
 
-export default connect(mapStateProps, mapDispatchprops)(ContactList)
+const mapDispatchToProps = dispatch => ({
+    onRemoveContact: (id) => dispatch(phonebookOperations.removeContact(id)),
+    fetchContacts: () => dispatch(phonebookOperations.fetchContacts())
+})
+
+export default connect(mapStateProps, mapDispatchToProps)(ContactList)

@@ -1,7 +1,9 @@
-import s from "./Filter.module.css";
-import propTypes from 'prop-types'
+import propTypes from 'prop-types';
 import { connect } from "react-redux";
 import phonebookActions from '../../redux/phonebook/phonebook-actions';
+import phonebookSelectors from '../../redux/phonebook/phonebook-selectors'
+import s from "./Filter.module.css";
+
 
 function Filter({ value='', oncahngeFilter }) {
     return (
@@ -19,7 +21,7 @@ Filter.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    value: state.contacts.filter
+    value: phonebookSelectors.getFilter(state)
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,9 +1,10 @@
-import {CSSTransition} from 'react-transition-group'
-import ContactForm from './Components/ContactForm/ContactForm'
-import ContactList from './Components/ContactList/ContactList'
-import Filter from './Components/Filter/Filter'
+import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import './App.css'
+import ContactForm from './Components/ContactForm/ContactForm';
+import ContactList from './Components/ContactList/ContactList';
+import Filter from './Components/Filter/Filter';
+import './App.css';
+import phonebookSelectors from './redux/phonebook/phonebook-selectors'
 
 
 function App(props) {
@@ -35,7 +36,7 @@ function App(props) {
   }
 
 const mapStateToProps = (state) => ({
-    contacts: state.contacts.items
+    contacts: phonebookSelectors.getItems(state)
 })
 
 export default connect(mapStateToProps)(App);
